@@ -15,20 +15,21 @@
     // DEBUG : voir ce qui arrive
     error_log("Data reçue : " . print_r($data, true));  
     
-    if(!empty($data['name']) && !empty($data['fstName']) && !empty($data['tel']) && !empty($data['car']) && !empty($data['days']) && !empty($data['rate'])) {
+    if(!empty($data['name']) && !empty($data['fstName']) && !empty($data['tel']) && !empty($data['car']) && !empty($data['dayBegin']) && !empty($data['dayEnd']) && !empty($data['tauxJournalier'])) {
         $name = $data['name'];
         $fstName = $data['fstName'];
         $tel = $data['tel'];
         $car = $data['car'];
-        $days = $data['days'];
-        $rate = $data['rate'];
+        $dayBegin = $data['dayBegin'];
+        $dayEnd = $data['dayEnd'];
+        $tauxJournalier = $data['tauxJournalier'];
     
 
-        $stmt = $mysqli->prepare("INSERT INTO Client(name,fstName,tel,car,days,rate) VALUES (?,?,?,?,?,?)"); 
+        $stmt = $mysqli->prepare("INSERT INTO Client(name,fstName,tel,car,dayBegin,dayEnd,tauxJournalier) VALUES (?,?,?,?,?,?,?)"); 
 
     if($stmt) {
             //convention variables
-            $stmt->bind_param("sssiii", $name, $fstName, $tel, $car, $days, $rate);
+            $stmt->bind_param("ssisssi", $name, $fstName, $tel, $car, $dayBegin, $dayEnd, $tauxJournalier);
 
             if($stmt->execute()){
                 echo json_encode(["status" => "success", "message" => "Information enregistrée!"]);
