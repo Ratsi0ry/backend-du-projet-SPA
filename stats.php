@@ -20,8 +20,8 @@
     ];
 
     if($globalStmt->execute()) {
-        $globalResult = $globalStmt->get_result();
-        $globalRow = $globalResult->fetch_assoc();
+        $globalResult = $globalStmt->get_result();// conversion donnee mysql en tableau php
+        $globalRow = $globalResult->fetch_assoc();// traitement a la ligne du base de donnee 
         $stats['minLoyer'] = $globalRow['minLoyer'];
         $stats['maxLoyer'] = $globalRow['maxLoyer'];
         $stats['totalClients'] = $globalRow['totalClients'];

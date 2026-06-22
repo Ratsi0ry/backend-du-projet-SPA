@@ -8,9 +8,9 @@
 
     require_once 'db.php';
 
-    // GET: Récupérer tous les clients
+    //GET: rcuperation de tous les clients
     if ($_SERVER['REQUEST_METHOD'] === 'GET') {
-        //recuperation des client dans le db
+    
         $stmt = $mysqli->prepare("SELECT id, name, fstName, tel, car, dayBegin, dayEnd, tauxJournalier FROM Client");
 
         if($stmt->execute()) {
@@ -18,11 +18,11 @@
             $clients = [];
 
             while($row = $result->fetch_assoc()) {
-                // Calculer le nombre de jours
-                $start = new DateTime($row['dayBegin']);
+                // Calcul du nombre de jrs
+                $start = new DateTime($row['dayBegin']); //DateTime rend la date mysql utilisable a php en tant que super object
                 $end = new DateTime($row['dayEnd']);
-                $interval = $start->diff($end);
-                $nbJours = $interval->days + 1;
+                $interval = $start->diff($end); //diff : ecart entre les dates
+                $nbJours = $interval->days + 1; 
 
                 $clients[] = [
                     'id' => $row['id'],
@@ -43,7 +43,7 @@
         }
     }
 
-    // PUT/POST: Modifier un client
+    // POST: Modifier un client
     elseif ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_GET['action']) && $_GET['action'] === 'update') {
         $json = file_get_contents('php://input');
         $data = json_decode($json, true);

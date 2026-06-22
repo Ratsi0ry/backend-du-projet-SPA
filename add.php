@@ -12,7 +12,7 @@
     $json = file_get_contents('php://input');
     $data = json_decode($json, true);
     
-    // DEBUG : voir ce qui arrive
+    //debug
     error_log("Data reçue : " . print_r($data, true));  
     
     if(!empty($data['name']) && !empty($data['fstName']) && !empty($data['tel']) && !empty($data['car']) && !empty($data['dayBegin']) && !empty($data['dayEnd']) && !empty($data['tauxJournalier'])) {
