@@ -17,7 +17,7 @@
         $username = $data['username'];
         $pswd = $data['pswd'];
 
-        $stmt = $mysqli->prepare("SELECT * FROM Admin WHERE username = :username LIMIT 1");
+        $stmt = $mysqli->prepare("SELECT * FROM Admin WHERE username = ? LIMIT 1");
     
         if($stmt) {
             $stmt->bind_param("s", $username);
@@ -25,9 +25,27 @@
             $stmt->execute();
 
             //recuperation de la resultat su requete
-            $result = $stmt->get_result(); 
-
+            $result = $stmt->get_result();
             $admin = $result->fetch_assoc();
+
+            if($admin){
+                if($pswd==$admin['pswd']){
+                    echo json_encode([
+                        "success" => "true",
+                        "message" => "mot de passe verifier"
+                    ]);
+                }else{
+                    echo json_encode([
+                        "success" => "false",
+                        "message" => "mot de passe incorrect"
+                    ]);
+                }
+            } else {
+                 echo json_encode([
+                        "sucess" => "false",
+                        "message" => "nom d'utilisateur false"
+                    ]);
+            }
         }
 
     } else {

@@ -27,7 +27,7 @@
 
         $stmt = $mysqli->prepare("INSERT INTO Client(name,fstName,tel,car,dayBegin,dayEnd,tauxJournalier) VALUES (?,?,?,?,?,?,?)"); 
 
-    if($stmt) {
+        if($stmt) {
             //convention variables
             $stmt->bind_param("ssisssi", $name, $fstName, $tel, $car, $dayBegin, $dayEnd, $tauxJournalier);
 
